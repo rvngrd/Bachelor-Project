@@ -1,3 +1,4 @@
+from django.db.models import Avg
 from django.shortcuts import render, get_object_or_404
 from .models import Product
 from django.http import Http404
@@ -5,9 +6,13 @@ from django.http import Http404
 
 
 def product_list(request):
-    products = Product.objects.all()
+    products = Product.objects.all().order_by('title')
+    number_of_products = products.count()
+    avg_rating = products.aggregate(Avg("rating"))
     return render(request, 'product_module/product_list.html', context={
-        'products': products
+        'products': products,
+        'number_of_products': number_of_products,
+        'avg_rating': avg_rating
     })
 
 
