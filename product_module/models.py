@@ -21,7 +21,7 @@ class ProductCategory(models.Model):
 
 
 class Product(models.Model):
-    title = models.CharField(max_length=300)
+    title = models.CharField(max_length=300, verbose_name='عنوان')
     category = models.ManyToManyField(
         ProductCategory,
         related_name='product_categories',
@@ -32,13 +32,14 @@ class Product(models.Model):
     description = models.TextField(verbose_name='توضیحات اصلی', db_index=True)
     is_active = models.BooleanField(default=False, verbose_name='فعال')
     is_delete = models.BooleanField(verbose_name='حذف شده')
-    slug = models.SlugField(default="", null=False, db_index=True, blank=True, max_length=200, unique=True)
+    slug = models.SlugField(default="", null=False, db_index=True, blank=True, max_length=200, unique=True,
+                            verbose_name='عنوان در url')
 
     def get_absolute_url(self):
         return reverse('product-detail', args=[self.slug])
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        # self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
     def __str__(self):

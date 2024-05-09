@@ -8,11 +8,9 @@ from django.http import Http404
 def product_list(request):
     products = Product.objects.all().order_by('title')
     number_of_products = products.count()
-    avg_rating = products.aggregate(Avg("rating"))
     return render(request, 'product_module/product_list.html', context={
         'products': products,
         'number_of_products': number_of_products,
-        'avg_rating': avg_rating
     })
 
 
