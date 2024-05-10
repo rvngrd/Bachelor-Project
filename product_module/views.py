@@ -6,11 +6,9 @@ from django.http import Http404
 
 
 def product_list(request):
-    products = Product.objects.all().order_by('title')
-    number_of_products = products.count()
+    products = Product.objects.all().order_by('title')[:5]
     return render(request, 'product_module/product_list.html', context={
         'products': products,
-        'number_of_products': number_of_products,
     })
 
 
