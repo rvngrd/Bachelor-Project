@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'product_module',
     'home_module',
     'django_render_partial',
+    'contact_module',
     'django.contrib.humanize'
 ]
 
