@@ -1,11 +1,16 @@
 from django.shortcuts import render, redirect
-
+from .forms import ContactUsForm
 
 # Create your views here.
 
 
 def contact_us_page(request):
     if request.method == 'POST':
-        print(request.POST['email'])
-        return reversed(redirect('home_page'))
-    return render(request, 'contact_module/contact_us_page.html')
+        contact_form = ContactUsForm(request.POST)
+        if contact_form.is_valid():
+            print(contact_form.cleaned_data)
+            return redirect('home_page')
+    contact_form = ContactUsForm()
+    return render(request, 'contact_module/contact_us_page.html', context={
+        'contact_form': contact_form
+    })
