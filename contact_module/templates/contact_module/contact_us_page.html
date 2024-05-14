@@ -12,7 +12,12 @@
                 <div class="col-sm-8">
                     <div class="contact-form">
                         <h2 class="title text-center">با ما در ارتباط باشیـد</h2>
-                        <div class="status alert alert-success" style="display: none"></div>
+{#                        <div class="status alert alert-success" style="display: none"></div>#}
+                        {% if contact_form.is_valid %}
+                            <div class="status alert alert-success text-center">
+                                پیام شما ثبت شد
+                            </div>
+                        {% endif %}
                         <form id="main-contact-form" class="contact-form row" action="{% url 'contact_us_page' %}"
                               method="post">
                             {% csrf_token %}
@@ -21,7 +26,7 @@
                                 {{ contact_form.email }}
                                 {{ contact_form.email.errors }}
                             </div>
-                            <div class="col-sm-6 {% if contact_form.full_name.errors %} text-danger {% endif %}">
+                            <div class="col-sm-6">
                                 {{ contact_form.full_name.label_tag }}
                                 {{ contact_form.full_name }}
                                 {{ contact_form.full_name.errors }}
@@ -66,12 +71,12 @@
                     <div class="contact-info">
                         <h2 class="title text-center">اطلاعات تماس</h2>
                         <address>
-                            <p>گـروه تکنوگـرافی 1614</p>
-                            <p>ایـران - آذربایجـان غربـی - خـوی</p>
+                            <p>سایت شاپ سنتر</p>
+                            <p>آدرس : ایـران - تهران - تهران</p>
                             <p>مجتـمع تجـاری تفریحـی شمس - طبـقه 2 - پلاک 54</p>
                             <p>تلفن تماس : 80 21 24 36 044</p>
                             <p>فکس : 80 21 24 36 044</p>
-                            <p style="font-family: tahoma;">ایمیـل : info@1614GP.ir</p>
+                            <p style="font-family: tahoma;">ایمیـل : shopcenter@info</p>
                         </address>
                     </div>
                 </div>
