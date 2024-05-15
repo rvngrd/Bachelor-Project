@@ -1,0 +1,41 @@
+{% extends 'shared/_layout.html' %}
+
+{% block title %}
+    تماس با ما
+{% endblock %}
+
+{% block content %}
+    <div id="contact-page" class="container">
+        <div class="bg">
+
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="contact-form">
+                        <h2 class="title text-center">با ما در ارتباط باشیـد</h2>
+                        <form id="main-contact-form" class="contact-form row" action="{% url 'create_profile_page' %}"
+                        method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="file" name="profile">
+                            <div class="form-group col-md-12">
+                                <button type="submit" class="=btn btn-primary pull-right">ارسال</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="contact-info">
+                        <h2 class="title text-center">اطلاعات تماس</h2>
+                        <address>
+                            <p>سایت شاپ سنتر</p>
+                            <p>آدرس : ایـران - تهران - تهران</p>
+                            <p>مجتـمع تجـاری تفریحـی شمس - طبـقه 2 - پلاک 54</p>
+                            <p>تلفن تماس : 80 21 24 36 044</p>
+                            <p>فکس : 80 21 24 36 044</p>
+                            <p style="font-family: tahoma;">ایمیـل : shopcenter@info</p>
+                        </address>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
