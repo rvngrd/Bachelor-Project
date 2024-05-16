@@ -35,7 +35,3 @@ class ContactUsModelForm(forms.ModelForm):
         labels = {
             'message': 'متن پیام'
         }
-
-
-class ProfileForm(forms.Form):
-    user_image = forms.FileField()
