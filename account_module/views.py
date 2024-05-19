@@ -37,8 +37,7 @@ class RegisterView(View):
                 )
                 new_user.set_password(user_password)
                 new_user.save()
-                # todo: send email active code
-                # send_email('فعالسازی حساب کاربری', new_user.email, {'user':new_user}, 'emails')
+                send_email('فعالسازی حساب کاربری', new_user.email, {'user': new_user}, 'emails/activate_account.html')
                 return redirect(reverse('login_page'))
         context = {
             'register_form': register_form
@@ -50,7 +49,7 @@ class ActivateAccountView(View):
     def get(self, request, email_active_code):
         user: User = User.objects.filter(email_active_code__iexact=email_active_code).first()
         if user is not None:
-            if user.is_active:
+            if not user.is_active:
                 user.is_active = True
                 user.email_active_code = get_random_string(48)
                 user.save()
@@ -95,25 +94,27 @@ class LoginView(View):
         return render(request, 'account_module/login.html', context)
 
 
-class ForgetPassword(View):
+class ForgetPasswordView(View):
     def get(self, request):
         forget_pass_form = ForgotPasswordForm()
         context = {'forget_pass_form': forget_pass_form}
         return render(request, 'account_module/forgot_password.html', context)
 
-    def post(self, request):
+    def post(self, request: HttpRequest):
         forget_pass_form = ForgotPasswordForm(request.POST)
         if forget_pass_form.is_valid():
             user_email = forget_pass_form.cleaned_data.get('email')
-            user: User = User.objects.get(email__exact=user_email).first()
+            user: User = User.objects.filter(email__iexact=user_email).first()
             if user is not None:
-                # todo: send reset password email to user
-                pass
+                send_email('بازیابی کلمه عبور', user.email, {'user': user}, 'emails/forgot_password.html')
+                return redirect(reverse('home_page'))
+            if user is None:
+                forget_pass_form.add_error('email', 'ایمیل وارد شده یافت نشد')
         context = {'forget_pass_form': forget_pass_form}
         return render(request, 'account_module/forgot_password.html', context)
 
 
-class ResetPassword(View):
+class ResetPasswordView(View):
     def get(self, request, active_code):
         user: User = User.objects.filter(email_active_code__iexact=active_code).first()
         if user is None:
@@ -143,3 +144,9 @@ class ResetPassword(View):
             'user': user
         }
         return render(request, 'account_module/reset_password.html', context)
+
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect(reverse('login_page'))
