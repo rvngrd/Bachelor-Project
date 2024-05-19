@@ -44,9 +44,10 @@ INSTALLED_APPS = [
     'home_module',
     'contact_module',
     'account_module',
+    'site_module',
     # external apps
     'django_render_partial',
-    'django.contrib.humanize'
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [
