@@ -1,7 +1,8 @@
+from django.http import HttpRequest
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import ListView
-from article_module.models import Article
+from article_module.models import Article, ArticleCategory
 from jalali_date import datetime2jalali, date2jalali
 
 
@@ -24,5 +25,19 @@ class ArticlesListView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ArticlesListView, self).get_context_data(*args, **kwargs)
-        context['date'] = date2jalali(self.request.user.date_joined)
         return context
+
+    def get_queryset(self):
+        query = super(ArticlesListView, self).get_queryset()
+        category_name = self.kwargs.get('category')
+        if category_name is not None:
+            query = query.filter(selected_categories__url_title__iexact=category_name)
+        return query
+
+
+def article_categories_component(request: HttpRequest):
+    article_main_categories = ArticleCategory.objects.filter(is_active=True, parent_id=None)
+    context = {
+        'main_categories': article_main_categories
+    }
+    return render(request, 'article_module/components/article_categories_component.html', context)
