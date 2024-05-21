@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     # external apps
     'django_render_partial',
     'django.contrib.humanize',
+    'sorl.thumbnail'
 ]
 
 MIDDLEWARE = [
