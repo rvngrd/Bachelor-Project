@@ -52,6 +52,7 @@ class ArticleDetailView(DetailView):
         context['comments'] = ArticleComment.objects.\
             filter(article_id=article.id, parent=None, accepted=True).order_by('-create_date').\
             prefetch_related('articlecomment_set')
+        context['count'] = ArticleComment.objects.filter(article_id=article.id, accepted=True).count()
         return context
 
 
@@ -68,9 +69,15 @@ def add_article_comment(request: HttpRequest):
         article_id = request.GET.get('article_id')
         article_comment = request.GET.get('article_comment')
         parent_id = request.GET.get('parent_id')
-        print(article_id, article_comment, parent_id)
         new_comment = ArticleComment(
-            article_id=article_id, parent_id= parent_id,
+            article_id=article_id, parent_id=parent_id,
             text=article_comment, user_id=request.user.id, accepted=False)
         new_comment.save()
+        # context = {
+        #     'comments': ArticleComment.objects.
+        #     filter(article_id=article_id, parent=None, accepted=True).order_by('-create_date').
+        #     prefetch_related('articlecomment_set'),
+        #     'comments_count': ArticleComment.objects.filter(article_id=article_id, accepted=True).count()
+        # }
+        # return render(request, 'article_module/includes/article_comments_partial.html', context)
     return HttpResponse('hello')

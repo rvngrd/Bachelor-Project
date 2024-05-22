@@ -61,8 +61,11 @@
                     {% endif %}
 
                     </div><!--Comments-->
+                    <div class="alert-success">
+                        <div class="text-center" id="comments_area"></div>
+                    </div>
                     <div class="response-area">
-                        <h2>نظرات ({{ comments.count }})</h2>
+                        <h2>نظرات ({{ count }})</h2>
                         <ul class="media-list">
 
                             {% for comment in comments %}
@@ -84,6 +87,7 @@
                                 </li>
 
                                 {% for sub_comment in comment.articlecomment_set.all %}
+                                    {% if sub_comment.accepted %}
                                     <li class="media second-media">
                                         <a class="pull-right" href="#">
                                             <img class="media-object" src="/static/images/blog/Customer.jpg" alt="">
@@ -99,6 +103,7 @@
                                             <p>{{ sub_comment.text }}</p>
                                         </div>
                                     </li>
+                                    {% endif %}
                                 {% endfor %}
 
                             {% endfor %}
