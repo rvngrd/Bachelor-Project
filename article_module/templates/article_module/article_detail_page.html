@@ -26,12 +26,14 @@
                                     <li><i class="fa fa-calendar"></i>{{ article.create_date | show_jalali_date }}</li>
                                 </ul>
                             </div>
-                            <div style="padding-bottom: 20px">
+                            <div class="single-blog-post">
+                                <a>
                                 {% if article.image %}
                                     {% thumbnail article.image "850x398" crop='center' as im %}
                                         <img src="{{ im.url }}">
                                     {% endthumbnail %}
                                 {% endif %}
+                                </a>
                             </div>
                             <p>
                                 {{ article.text }}
@@ -77,7 +79,7 @@
                                             </li>
                                         </ul>
                                         <p>{{ comment.text }}</p>
-                                        <a class="btn btn-primary" href=""><i class="fa fa-reply"></i>پاسـخ</a>
+                                        <a class="btn btn-primary" onclick="fillParentId({{ comment.id }})"><i class="fa fa-reply"></i>پاسـخ</a>
                                     </div>
                                 </li>
 
@@ -95,7 +97,6 @@
                                                 </li>
                                             </ul>
                                             <p>{{ sub_comment.text }}</p>
-                                            <a class="btn btn-primary" href=""><i class="fa fa-reply"></i>پاسـخ</a>
                                         </div>
                                     </li>
                                 {% endfor %}
@@ -105,18 +106,19 @@
                     </div><!--/Response-area-->
                     {% if request.user.is_authenticated %}
 
-                        <div class="replay-box">
+                        <div class="replay-box" id="comment_form">
                             <div class="row">
 
                                 <div class="col-sm-12">
                                     <h2>نظـر خود را بنویسیـد</h2>
                                     <div class="text-area">
+                                        <input type="hidden" id="parent_id" value="">
                                         <div class="blank-arrow">
                                             <label>متن پیام</label>
                                         </div>
                                         <span>*</span>
                                         <textarea name="message" rows="11" id="commentText"></textarea>
-                                        <a class="btn btn-primary" onclick="sendArticleComment()">ارسـال نظـر</a>
+                                        <a class="btn btn-primary" onclick="sendArticleComment({{ article.id }})">ارسـال نظـر</a>
                                     </div>
                                 </div>
                             </div>
