@@ -22,6 +22,12 @@ class ArticleAdmin(admin.ModelAdmin):
         return super().save_model(request, obj, form, change)
 
 
+class ArticleCommentAdmin(admin.ModelAdmin):
+    list_display = ['id', 'user', 'create_date', 'parent', 'article', 'accepted']
+    list_filter = ['accepted']
+    list_editable = ['accepted']
+
+
 admin.site.register(models.ArticleCategory, ArticleCategoryAdmin)
 admin.site.register(models.Article, ArticleAdmin)
-admin.site.register(models.ArticleComment)
+admin.site.register(models.ArticleComment, ArticleCommentAdmin)

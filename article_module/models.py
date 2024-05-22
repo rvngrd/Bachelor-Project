@@ -54,6 +54,10 @@ class ArticleComment(models.Model):
     text = models.TextField(verbose_name='متن نظر')
     accepted = models.BooleanField(default=False, verbose_name='تایید')
 
+    def __str__(self):
+        return str(self.id)
+
+
     class Meta:
         verbose_name = 'نظر مقاله'
         verbose_name_plural = 'نظرات مقالات'
