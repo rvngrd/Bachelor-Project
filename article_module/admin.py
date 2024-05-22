@@ -24,3 +24,4 @@ class ArticleAdmin(admin.ModelAdmin):
 
 admin.site.register(models.ArticleCategory, ArticleCategoryAdmin)
 admin.site.register(models.Article, ArticleAdmin)
+admin.site.register(models.ArticleComment)
