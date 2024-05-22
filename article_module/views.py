@@ -1,7 +1,7 @@
 from django.http import HttpRequest
 from django.shortcuts import render
 from django.views import View
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from article_module.models import Article, ArticleCategory
 from jalali_date import datetime2jalali, date2jalali
 
@@ -20,6 +20,7 @@ from jalali_date import datetime2jalali, date2jalali
 
 class ArticlesListView(ListView):
     model = Article
+    ordering = '-create_date'
     paginate_by = 5
     template_name = 'article_module/articles_page.html'
 
@@ -29,9 +30,20 @@ class ArticlesListView(ListView):
 
     def get_queryset(self):
         query = super(ArticlesListView, self).get_queryset()
+        query = query.filter(is_active=True)
         category_name = self.kwargs.get('category')
         if category_name is not None:
             query = query.filter(selected_categories__url_title__iexact=category_name)
+        return query
+
+
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = 'article_module/article_detail_page.html'
+
+    def get_queryset(self):
+        query = super(ArticleDetailView, self).get_queryset()
+        query = query.filter(is_active=True)
         return query
 
 
