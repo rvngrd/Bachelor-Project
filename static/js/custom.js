@@ -8,10 +8,14 @@ function sendArticleComment(articleId) {
     }).then(res => {
         // location.reload();
         // $('#comments_area').html('نظر شما پس از بازبینی ثبت خواهد شد');
-        document.getElementById('comments_area').innerText = "نظر شما پس از بازبینی ثبت خواهد شد";
-        document.getElementById('comments_area').scrollIntoView({behavior: "smooth"});
-        $('#commentText').val('');
-        $('#parentId').val('');
+        if (comment === "") {
+            alert("لطفاً متن پیام را وارد نمایید");
+        } else {
+            document.getElementById('comments_area').innerText = "نظر شما پس از بازبینی ثبت خواهد شد";
+            document.getElementById('comments_area').scrollIntoView({behavior: "smooth"});
+            $('#commentText').val('');
+            $('#parentId').val('');
+        }
         // document.getElementById('comments_area').classList.add("alert alert-success");
     });
 }

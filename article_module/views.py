@@ -72,7 +72,10 @@ def add_article_comment(request: HttpRequest):
         new_comment = ArticleComment(
             article_id=article_id, parent_id=parent_id,
             text=article_comment, user_id=request.user.id, accepted=False)
-        new_comment.save()
+        if article_comment == '':
+            pass
+        else:
+            new_comment.save()
         # context = {
         #     'comments': ArticleComment.objects.
         #     filter(article_id=article_id, parent=None, accepted=True).order_by('-create_date').

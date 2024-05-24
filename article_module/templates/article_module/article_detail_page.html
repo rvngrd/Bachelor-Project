@@ -122,8 +122,10 @@
                                             <label>متن پیام</label>
                                         </div>
                                         <span>*</span>
-                                        <textarea name="message" rows="11" id="commentText"></textarea>
+                                        <form>
+                                        <textarea name="message" rows="11" id="commentText" required></textarea>
                                         <a class="btn btn-primary" onclick="sendArticleComment({{ article.id }})">ارسـال نظـر</a>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
