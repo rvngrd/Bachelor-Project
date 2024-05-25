@@ -1,8 +1,9 @@
 from django.db.models import Avg
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import TemplateView, ListView, DetailView, View
-from .models import Product
-from django.http import Http404
+from .models import Product, ProductCategory
+from django.http import Http404, HttpRequest
+
 
 # Create your views here.
 
@@ -13,10 +14,13 @@ class ProductListView(ListView):
     context_object_name = 'products'
     ordering = ['price']
     paginate_by = 6
-    # def get_queryset(self):
-    #     base_query = super(ProductListView, self).get_queryset()
-    #     data = base_query.filter(is_active=True)
-    #     return data
+
+    def get_queryset(self):
+        query = super(ProductListView, self).get_queryset()
+        category_name = self.kwargs.get('cat')
+        if category_name is not None:
+            query = query.filter(category__url_title__iexact=category_name)
+        return query
 
 
 class ProductDetailView(DetailView):
@@ -39,6 +43,13 @@ class AddProductFavorite(View):
         request.session["product_favorite"] = product_id
         return redirect(product.get_absolute_url())
 
+
+def product_categories_component(request: HttpRequest):
+    product_categories = ProductCategory.objects.filter(is_active=True, is_delete=False)
+    context = {
+        'categories': product_categories
+    }
+    return render(request, 'product_module/components/product_categories_component.html', context)
 
 # class ProductListView(TemplateView):
 #     template_name = 'product_module/product_list.html'
