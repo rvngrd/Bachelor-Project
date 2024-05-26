@@ -1,7 +1,7 @@
-from django.db.models import Avg
+from django.db.models import Avg, Count
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import TemplateView, ListView, DetailView, View
-from .models import Product, ProductCategory
+from .models import Product, ProductCategory, ProductBrand
 from django.http import Http404, HttpRequest
 
 
@@ -18,8 +18,14 @@ class ProductListView(ListView):
     def get_queryset(self):
         query = super(ProductListView, self).get_queryset()
         category_name = self.kwargs.get('cat')
+        brand_name = self.kwargs.get('brand')
+
+        if brand_name is not None:
+            query = query.filter(brand__url_title__iexact=brand_name)
+
         if category_name is not None:
             query = query.filter(category__url_title__iexact=category_name)
+
         return query
 
 
@@ -45,11 +51,20 @@ class AddProductFavorite(View):
 
 
 def product_categories_component(request: HttpRequest):
-    product_categories = ProductCategory.objects.filter(is_active=True, is_delete=False)
+    product_categories = ProductCategory.objects.filter(is_active=True, is_delete=False).order_by('title')
     context = {
         'categories': product_categories
     }
     return render(request, 'product_module/components/product_categories_component.html', context)
+
+
+def product_brands_component(request: HttpRequest):
+    product_brands = ProductBrand.objects.annotate(product_count=Count('product')).filter(is_active=True).order_by(
+        'title')
+    context = {
+        'brands': product_brands
+    }
+    return render(request, 'product_module/components/product_brand_component.html', context)
 
 # class ProductListView(TemplateView):
 #     template_name = 'product_module/product_list.html'
