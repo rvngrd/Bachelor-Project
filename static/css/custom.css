@@ -9,3 +9,7 @@
 ul {
     padding-right: 0px;
 }
+
+.courser-pointer {
+    cursor: pointer;
+}
