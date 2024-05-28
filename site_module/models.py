@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 
 
@@ -74,7 +75,6 @@ class SiteBanner(models.Model):
     image = models.ImageField(upload_to='images/banners', verbose_name='تصویر بنر')
     position = models.CharField(max_length=200, choices=SiteBannerPositions.choices, verbose_name='جایگاه نمایشی')
     is_active = models.BooleanField(verbose_name='فعال')
-
 
     def __str__(self):
         return self.title
