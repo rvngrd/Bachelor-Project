@@ -20,12 +20,15 @@
                         class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</a>
             </div>
             <div class="product-overlay">
+                <a href="{{ product.get_absolute_url }}">
                 <div class="overlay-content">
                     <h2>{{ product.price|intcomma:False }} تومان</h2>
                     <p>{{ product.short_description }}</p>
                     <a href="#" class="btn btn-default add-to-cart"><i
-                            class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد</a>
+                            class="fa fa-shopping-cart"></i>افزودن به سبـد خریـد
+                    </a>
                 </div>
+                </a>
             </div>
         </div>
         <div class="choose">
