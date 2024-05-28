@@ -12,7 +12,7 @@
                 <div class="col-sm-8">
                     <div class="contact-form">
                         <h2 class="title text-center">با ما در ارتباط باشیـد</h2>
-{#                        <div class="status alert alert-success" style="display: none"></div>#}
+                        {#                        <div class="status alert alert-success" style="display: none"></div>#}
                         {% if form.is_valid %}
                             <div class="status alert alert-success text-center">
                                 پیام شما ثبت شد
@@ -41,6 +41,7 @@
                                 {{ form.message }}
                                 {{ form.message.errors }}
                             </div>
+
                             {% comment %}
                             <div class="form-group col-md-6">
                                 <input type="text" name="name" class="form-control" required="required"
@@ -61,8 +62,9 @@
                             </div>
                             {% endcomment %}
                             <div class="form-group col-md-12">
-{#                                <input type="submit" name="submit" class="btn btn-primary pull-right" value="ارسـال">#}
-                                <button type="submit" class="=btn btn-primary pull-right">ارسال</button>
+                                {#                                <input type="submit" name="submit" class="btn btn-primary pull-right" value="ارسـال">#}
+                                <button type="submit" class="=btn btn-primary pull-right" onclick="Contact()">ارسال
+                                </button>
                             </div>
                         </form>
                     </div>

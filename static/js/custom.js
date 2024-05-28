@@ -39,3 +39,17 @@ function fillPage(page) {
     $('#page').val(page);
     $('#filter_form').submit();
 }
+
+function Contact() {
+    let message = $('#message').val();
+    let title = $('#title').val();
+    let email = $('#email').val();
+    let full_name = $('#full_name').val();
+
+    if (message !== "" && title !== "" && email !== "" && full_name !== "") {
+        alert('پیام شما ثبت شد');
+    }
+    else {
+        alert('فیلد های خواسته شده را پر کنید');
+    }
+}

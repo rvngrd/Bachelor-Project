@@ -11,17 +11,20 @@ class ContactUsModelForm(forms.ModelForm):
         widgets = {
             'full_name': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'نام و نام خانوادگی'
+                'placeholder': 'نام و نام خانوادگی',
+                'id': 'full_name'
             }
             ),
             'email': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'ایمیل'
+                'placeholder': 'ایمیل',
+                'id': 'email'
             }
             ),
             'title': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'عنوان'
+                'placeholder': 'عنوان',
+                'id': 'title'
             }
             ),
             'message': forms.Textarea(attrs={
