@@ -2,7 +2,7 @@ from django.db.models import Avg, Count
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import TemplateView, ListView, DetailView, View
 from site_module.models import SiteBanner
-from .models import Product, ProductCategory, ProductBrand, ProductVisit
+from .models import Product, ProductCategory, ProductBrand, ProductVisit, ProductGallery
 from django.http import Http404, HttpRequest
 from utils.convertors import group_list
 from utils.http_service import get_client_ip
@@ -64,6 +64,8 @@ class ProductDetailView(DetailView):
         context['is_favorite'] = favorite_product_id == str(loaded_product.id)
         context['banners'] = \
             SiteBanner.objects.filter(is_active=True, position__iexact=SiteBanner.SiteBannerPositions.product_detail)
+        context['product_galleries_group'] = \
+            group_list(list(ProductGallery.objects.filter(product_id=loaded_product.id).all()), 3)
         user_ip = get_client_ip(self.request)
         user_id = None
         if self.request.user.is_authenticated:

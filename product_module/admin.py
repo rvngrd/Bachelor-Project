@@ -15,3 +15,5 @@ admin.site.register(models.ProductCategory)
 admin.site.register(models.ProductTag)
 admin.site.register(models.ProductBrand)
 admin.site.register(models.ProductVisit)
+admin.site.register(models.ProductGallery)
+
