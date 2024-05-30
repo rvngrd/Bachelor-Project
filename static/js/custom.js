@@ -53,3 +53,8 @@ function Contact() {
         alert('فیلد های خواسته شده را پر کنید');
     }
 }
+
+function showLargeImage(imageSrc) {
+    $('#main_image').attr('src', imageSrc);
+    $('#show_large_image_modal').attr('href', imageSrc);
+}
