@@ -48,8 +48,7 @@ function Contact() {
 
     if (message !== "" && title !== "" && email !== "" && full_name !== "") {
         alert('پیام شما ثبت شد');
-    }
-    else {
+    } else {
         alert('فیلد های خواسته شده را پر کنید');
     }
 }
@@ -57,4 +56,11 @@ function Contact() {
 function showLargeImage(imageSrc) {
     $('#main_image').attr('src', imageSrc);
     $('#show_large_image_modal').attr('href', imageSrc);
+}
+
+function addProductToOrder(productId) {
+    const productCount = $('#product-count').val();
+    $.get('/order/add-to-order?product_id=' + productId + '&count=' + productCount).then(res => {
+        console.log(res)
+    })
 }
