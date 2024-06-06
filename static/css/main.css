@@ -1780,6 +1780,7 @@ h2.title {
   display: block;
   margin-right: -12px;
   overflow: hidden;
+  cursor: pointer;
 }
 
 
