@@ -266,7 +266,7 @@
                                                             {% thumbnail product.image "268x250" quality=100 as im %}
                                                                 <img src="{{ im.url }}"/>
                                                             {% endthumbnail %}
-                                                        </a>
+                                   F                     </a>
                                                         <h2>{{ product.price|intcomma:False }} تومان</h2>
                                                         <p>{{ product.title }}</p>
                                                         <a href="{{ product.get_absolute_url }}"
