@@ -81,7 +81,7 @@ function removeOrderDetail(detailId) {
         if (res.status === 'success') {
             Swal.fire({
                 title: "اعلان",
-                text: 'کالای مورد نظر حذف شد',
+                text: 'کالای مورد نظر با موفقیت حذف شد',
                 icon: 'success',
                 showCancelButton: false,
                 confirmButtonColor: "#3085d6",
